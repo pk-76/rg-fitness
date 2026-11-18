@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# [CONFIRM] update to your live domain
+Sitemap: https://www.rgfitness.in/sitemap.xml

@@ -1,0 +1,28 @@
+# RG Fitness — Apache config (XAMPP / shared hosting)
+DirectoryIndex index.php
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# Long-lived caching for static assets (CSS/JS are cache-busted with ?v=filemtime)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png  "access plus 1 year"
+  ExpiresByType text/css   "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType video/mp4  "access plus 1 year"
+</IfModule>
+
+# Keep source files private
+<FilesMatch "^(config\.php)$">
+  # config.php is only ever include()d, never meant to be browsed directly
+  Require all denied
+</FilesMatch>
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
